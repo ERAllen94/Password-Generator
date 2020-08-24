@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+</head> 
+
+<body>
+    <p id="countdown">10:00
+        <br>
+        Welcome! in this quiz you will be answering six questions in under a minute.
+        <br>
+        for each question you get wrong 10 seconds will be subtracted from the timer.
+    </p>
+
+    <!--Make a start button-->
+    <button id="startButton">Start timer</button>
+
+
+    <div id="quiz-container" class="hide">
+        <p id="initial-question">Initial Question</p>
+        <button id="questionA" value ="A">Answer A</button>
+        <button id="questionB" value ="B">Answer B</button>
+        <button id="questionC" value ="C">Answer C</button>
+    </div>
+    <div id="enter-initials" class="hide">
+        <p>Congratulations on completing your quiz.</p>
+        <p>Please enter your intials</p>
+        <input type="text" id="initials"/>
+        <button id="submit-initials">Submit</button>
+    </div>
+    <div id="high-scores" class="hide">
+        <p>High scores</p>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>

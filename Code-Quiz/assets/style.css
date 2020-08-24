@@ -1,0 +1,23 @@
+button {
+  background-color: Blue;
+  color: white;
+}
+
+
+
+.hide {
+  display: none;
+}
+
+.correctAnswer {
+  background-color: green;
+}
+
+.incorrectAnswer {
+  background-color: red;
+}
+
+#initial-question {
+  text-align: justify;
+  text-align-last: center;
+}
