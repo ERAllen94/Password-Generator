@@ -3,6 +3,11 @@ const startingMinutes = 10;
 let time = startingMinutes * 60;
 let timeout;
 let initialInput;
+const highscore = {
+    initials: '',
+    quizScore: 0
+};
+let quizScore = 0;
 
 const initialQuestions = [
     {
@@ -11,6 +16,7 @@ const initialQuestions = [
         answerB: 'Hyper Tool Markup Language',
         answerC: 'Hyper Text Madeup Language',
         correctAnswer: 'A',
+        
     },
     {
         question: 'Which of these is not a empty tag?',
@@ -18,6 +24,7 @@ const initialQuestions = [
         answerB: 'the image tag',
         answerC: 'the paragraph tag',
         correctAnswer: 'B',
+        
     },
     {
         question: 'What is the smallest header element?',
@@ -59,6 +66,7 @@ const questionBEl = document.getElementById('questionB');
 const questionCEl = document.getElementById('questionC');
 const enterInitialsEl = document.getElementById('enter-initials');
 const submitButtonEl = document.getElementById('submit-initials');
+const highScoreEl = document.getElementById('high-scores');
 
 function updateCountdown() {
     const minutes = Math.floor(time / 60);
@@ -77,10 +85,20 @@ function handleStart() {
     nextQuestion()
 }
 
+function finalPage() {
+    highScoreEl.innerHTML = `The current high score, held by ${highscore.initials}, is ${highscore.quizScore}`
+    enterInitialsEl.classList.add('hide')
+    highScoreEl.classList.remove('hide');
+}
+
 function handleSubmit() {
-    console.log('iv', enterInitialsEl);
+    console.log('hi', highScoreEl)
     initialInput = document.getElementById('initials').value
-    console.log(initialInput);
+    if (quizScore < highscore.quizScore ) {
+        highscore.initials = initialInput;
+        highscore.quizScore = quizScore;
+    }
+    finalPage();
 }
 
 function getAnswers(val) {
@@ -92,10 +110,10 @@ function getAnswers(val) {
 }
 
 function quizWrapup() {
-    console.log('this is the wrap up');
     quizContainerEl.classList.add('hide')
     enterInitialsEl.classList.remove('hide');
 }
+
 
 function selectAnswer(event) {
     const rightAnswer = getAnswers(currentQuestion.correctAnswer);
@@ -103,26 +121,27 @@ function selectAnswer(event) {
     console.log('answers', rightAnswer, wrongAnswer);  
         rightAnswer.classList.add('correctAnswer'); 
     if (event.target.value !== currentQuestion.correctAnswer) {
+        quizScore +=1
         console.log('hehe. loser. The answer was', currentQuestion.correctAnswer);
         wrongAnswer.classList.add('incorrectAnswer')
     }
-    timeout = window.setTimeout(() => clearStatusClass(rightAnswer, wrongAnswer), 750);
-    if(remainingQuestions.length === 0) {
-        console.log('this should go to the end screen');
-        quizWrapup();
-    } else {
-        nextQuestion();
-    }
+    timeout = window.setTimeout(() => clearStatusClass(rightAnswer, wrongAnswer), 500);
+
 }
 
 function clearStatusClass(rightAnswer, wrongAnswer){
     rightAnswer.classList.remove('correctAnswer');
     wrongAnswer.classList.remove('incorrectAnswer');
+    if(remainingQuestions.length === 0) {
+        console.log('this should go to the end screen');
+        quizWrapup();
+        return;
+    }
+    nextQuestion()
 }
 
 
-function nextQuestion() {
-    const randomQuestions = Math.floor(Math.random() * initialQuestions.length)
+function nextQuestion() {    const randomQuestions = Math.floor(Math.random() * initialQuestions.length)
     currentQuestion = remainingQuestions[randomQuestions]
     questionContainerEl.innerHTML = currentQuestion.question;
     questionAEl.innerHTML = currentQuestion.answerA;
