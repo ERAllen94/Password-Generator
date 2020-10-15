@@ -21,4 +21,4 @@ Push button
 Answer the questions it ask you 
 Use password provided
 
-
+![]images/Images\Pass gen 1.PNG
